@@ -1,7 +1,7 @@
 import os
 
 import tweepy
-from heroku_random_taylor_swift_lyrics.utils.sentence_generator import generate_sentence
+from heroku_random_taylor_swift_lyrics.utils.sentence_generator import generate_sentence, FILE_NAME
 
 file_name = None
 
@@ -15,7 +15,7 @@ cfg = {
 
 
 def post_to_twitter_account():
-    tweet = generate_sentence(file_name=file_name, chain_length=3, twitter_hashtag='#TaylorSwift')
+    tweet = generate_sentence(file_name=file_name or FILE_NAME, twitter_hashtag='#TaylorSwift')
     get_api(cfg).update_status(status=tweet)
     return tweet
 
