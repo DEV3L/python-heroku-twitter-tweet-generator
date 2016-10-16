@@ -15,15 +15,25 @@ class FileScrubber():
             line_count = 0
             for line in file_handler:
                 scrubbed_line = re.sub('\[.*?\]', '', re.sub('\{.*?\}', '', line)).strip(' ')
+                scrubbed_line = scrubbed_line.strip()
+                scrubbed_line = scrubbed_line.rstrip(',')
+
                 if not scrubbed_line or len(scrubbed_line.split()) < self.min_string_token_count:
                     continue
 
                 line_count += 1
 
-                if not scrubbed_line.endswith(',\n') and line_count % 3 == 0:
-                    scrubbed_line = scrubbed_line.replace('\n', '.\n')
+                if line_count % 2 == 0:
+                    if not scrubbed_line.endswith('?') \
+                            and not scrubbed_line.endswith('.') \
+                            and not scrubbed_line.endswith('!'):
+                        scrubbed_line += '.'
+                    scrubbed_line += '\n'
+
+                    if scrubbed_line[0] != 'I':
+                        scrubbed_line = scrubbed_line[0].lower() + scrubbed_line[1:]
                 else:
-                    scrubbed_line = scrubbed_line.replace('\n', ' ')
+                    scrubbed_line += ' '
 
                 self.lines_set.add(scrubbed_line)
 

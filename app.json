@@ -3,6 +3,11 @@
   "description": "A Python app, which can post a randomly created Taylor Swift lyric to Facebook/Twitter.",
   "image": "heroku/python",
   "repository": "https://github.com/DEV3L/python-heroku-random-taylor-swift-lyrics",
-  "keywords": ["python", "flask" ],
-  "addons": [ "" ]
+  "keywords": [
+    "python",
+    "flask"
+  ],
+  "addons": [
+    ""
+  ]
 }

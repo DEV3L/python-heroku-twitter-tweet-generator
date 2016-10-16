@@ -3,18 +3,18 @@ import sys
 
 import facebook
 
+cfg = {
+    'page_id': os.environ.get('FACEBOOK_PAGE_ID'),
+    'access_token': os.environ.get('FACEBOOK_USER_ACCESS_TOKEN')
+}
 
-def post_to_page(sentence):
+
+def post_to_facebook_page(sentence):
     if not sentence:
         return
 
-    cfg = {
-        'page_id': os.environ['FACEBOOK_PAGE_ID'],
-        'access_token': os.environ['FACEBOOK_USER_ACCESS_TOKEN']
-    }
-
-    api = get_api(cfg)
-    api.put_wall_post(sentence)
+    get_api(cfg).put_wall_post(sentence)
+    return sentence
 
 
 def get_api(cfg):
@@ -29,4 +29,4 @@ def get_api(cfg):
 
 
 if __name__ == '__main__':
-    post_to_page(sys.argv[1] or "post some phrase")
+    post_to_facebook_page(sys.argv[1] or "post some phrase")
