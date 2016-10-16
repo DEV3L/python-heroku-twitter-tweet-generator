@@ -19,7 +19,7 @@ def facebook():
 
 
 @app.route("/twitter")
-def facebook():
+def twitter():
     return post_to_twitter_account()
 
 
