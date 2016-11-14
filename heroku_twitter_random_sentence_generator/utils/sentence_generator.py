@@ -50,6 +50,7 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
 
     return sentence
 
+
 if __name__ == "__main__":
     file_name = '..' + os.path.sep + '..' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
     print(generate_sentence(file_name=file_name))

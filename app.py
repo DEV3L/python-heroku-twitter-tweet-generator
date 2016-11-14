@@ -2,6 +2,7 @@ from flask import Flask
 from flask.ext.runner import Runner
 
 from heroku_twitter_random_sentence_generator.utils.facebook import post_to_facebook_page
+from heroku_twitter_random_sentence_generator.utils.logging_wrapper import log_exception
 from heroku_twitter_random_sentence_generator.utils.sentence_generator import generate_sentence
 from heroku_twitter_random_sentence_generator.utils.twitter import post_to_twitter_account
 
@@ -21,7 +22,11 @@ def facebook():
 
 @app.route("/twitter")
 def twitter():
-    return post_to_twitter_account()
+    try:
+        return post_to_twitter_account()
+    except Exception as exception:
+        log_exception('Could not post to Twitter')
+        return exception
 
 
 if __name__ == "__main__":
