@@ -1,4 +1,4 @@
-# python-heroku-random-taylor-swift-lyrics
+# python-heroku-twitter-random-sentence-generator
 
 A Python Flask application that can post to a randomly generated sentence to Twitter.
 
