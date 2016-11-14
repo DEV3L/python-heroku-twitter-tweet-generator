@@ -1,6 +1,6 @@
 # python-heroku-random-taylor-swift-lyrics
 
-A Python Flask application that can post to Facebook or Twitter a random taylor swift lyric.
+A Python Flask application that can post to a randomly generated sentence to Twitter.
 
 
 ## References
@@ -22,6 +22,12 @@ Setting up a new Flask application
 
 ## Environment Variables
 
+Heroku
+- 'HEROKU_HOUR_MODULO'
+  - Used to work around Heroku's limited scheduler capabilities.
+  - When set to a numerical value, will only post on the modulo
+    - E.g.: '2' will limt post 12 times a day, '3' will limit posts to 8 times a day, etc 
+
 Facebook
 [Python Facebook tutorial - post to Facebook page in 4 steps](http://nodotcom.org/python-facebook-tutorial.html)
 - 'FACEBOOK_PAGE_ID'
@@ -38,10 +44,10 @@ Twitter
 ## Running Locally
 
 ```sh
-$ git git@github.com:DEV3L/python-heroku-random-taylor-swift-lyrics.git
+$ git git@github.com:DEV3L/python-heroku-random-sentence-generator.git
 $ cd python-heroku-random-taylor-swift-lyrics
 
-$ mkvirtualenv -p /usr/local/bin/python3 heroku-random-taylor-swift-lyrics
+$ mkvirtualenv -p /usr/local/bin/python3 python-heroku-random-sentence-generator-lyrics
 $ python setup.py develop
 
 $ python app.py --host 0.0.0.0 --port 5000

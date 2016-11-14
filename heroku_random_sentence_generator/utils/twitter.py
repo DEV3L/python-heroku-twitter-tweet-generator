@@ -1,7 +1,8 @@
 import os
 
 import tweepy
-from heroku_random_taylor_swift_lyrics.utils.sentence_generator import generate_sentence, FILE_NAME
+
+from heroku_random_sentence_generator.utils.sentence_generator import generate_sentence, FILE_NAME
 
 file_name = None
 

@@ -4,11 +4,11 @@ setup(
     name='python_heroku_random_taylor_swift_lyrics',
     packages=find_packages(),
     version='0.1',
-    description='Flask application that can post to Facebook a random taylor swift lyric.',
+        description='A Python Flask application that can post to a randomly generated sentence to Twitter.',
     author='Justin Beall',
     author_email='jus.beall@gmail.com',
-    url='https://github.com/DEV3L/python-heroku-random-taylor-swift-lyrics',
-    download_url='https://github.com/DEV3L/python-heroku-random-taylor-swift-lyrics/tarball/0.1',
+        url='https://github.com/DEV3L/python-heroku-random-sentence-generator',
+        download_url='https://github.com/DEV3L/python-heroku-random-sentence-generator/tarball/0.1',
     keywords=['dev3l', 'facebook', 'graph', 'heroku', 'python', 'taylor swift', 'markov', 'flask'],
     install_requires=[
         'Flask==0.10.1',
@@ -24,7 +24,8 @@ setup(
         'nose==1.3.7',
         'ordered-set==2.0.1',
         'requests==2.11.1',
-        'tweepy==3.5.0'
+        'tweepy==3.5.0',
+        'pymessenger'
     ],
     classifiers=[
         'Environment :: Console',
