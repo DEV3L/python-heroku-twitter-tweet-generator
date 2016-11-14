@@ -34,15 +34,18 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
             continue
 
         if twitter_hashtags:
+            max_tweets = random.randint(0, 10)
             random.shuffle(twitter_hashtags)
             sentence += ' ' + twitter_hashtags.pop()
 
             if len(sentence) <= 140:
-                while twitter_hashtags:
+                hashtag_count = 0
+                while twitter_hashtags and hashtag_count < max_tweets:
                     another_hashtag = twitter_hashtags.pop()
                     _sentence = sentence + ' ' + another_hashtag
                     if len(_sentence) >= 140:
                         break
+                    hashtag_count += 1
                     sentence = _sentence
                 break
         else:
