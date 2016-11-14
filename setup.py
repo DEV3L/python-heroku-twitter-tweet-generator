@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='python_heroku_random_taylor_swift_lyrics',
+        name='python_heroku_twitter_random_sentence_generator',
     packages=find_packages(),
     version='0.1',
-        description='A Python Flask application that can post to a randomly generated sentence to Twitter.',
+        description='A Python Flask application that can post to a randomly generated sentence to Twitter using Heroku.',
     author='Justin Beall',
     author_email='jus.beall@gmail.com',
-        url='https://github.com/DEV3L/python-heroku-random-sentence-generator',
-        download_url='https://github.com/DEV3L/python-heroku-random-sentence-generator/tarball/0.1',
+        url='https://github.com/DEV3L/python-heroku-twitter-random-sentence-generator',
+        download_url='https://github.com/DEV3L/python-heroku-twitter-random-sentence-generator/tarball/0.1',
     keywords=['dev3l', 'facebook', 'graph', 'heroku', 'python', 'taylor swift', 'markov', 'flask'],
     install_requires=[
         'Flask==0.10.1',

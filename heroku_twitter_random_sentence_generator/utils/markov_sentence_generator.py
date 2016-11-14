@@ -116,8 +116,8 @@ def genSentence(markovLength):
     curr = random.choice(starts)
     sent = curr.capitalize()
     prevList = [curr]
-    # Keep adding words until we hit a period
-    while (curr not in ".\n"):
+    # Keep adding words until we hit a punctuation mark
+    while (curr not in ".!?"):
         curr = next(prevList)
         prevList.append(curr)
         # if the prevList has gotten too long, trim it

@@ -27,6 +27,8 @@ Heroku
   - Used to work around Heroku's limited scheduler capabilities.
   - When set to a numerical value, will only post on the modulo
     - E.g.: '2' will limt post 12 times a day, '3' will limit posts to 8 times a day, etc 
+- 'TWITTER_TAG'
+  - Comma separated list (pick 1 at random) of hashtags or mentions to tag on to the end of the post 
 
 Facebook
 [Python Facebook tutorial - post to Facebook page in 4 steps](http://nodotcom.org/python-facebook-tutorial.html)

@@ -1,6 +1,6 @@
 import os
 
-from heroku_random_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence, wordlist
+from heroku_twitter_random_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence, wordlist
 
 CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '3')
 FILE_NAME = os.environ.get('MARKOV_FILE_NAME',

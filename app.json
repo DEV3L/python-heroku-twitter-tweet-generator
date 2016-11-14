@@ -1,11 +1,13 @@
 {
-  "name": "Random Taylor Swit Lyrics",
-  "description": "A Python app, which can post a randomly created Taylor Swift lyric to Facebook/Twitter.",
+  "name": "Python Heroku Twitter Random Sentence Generator",
+  "description": "A Python Flask application that can post to a randomly generated sentence to Twitter using Heroku.",
   "image": "heroku/python",
-  "repository": "https://github.com/DEV3L/python-heroku-random-taylor-swift-lyrics",
+  "repository": "https://github.com/DEV3L/python-heroku-twitter-random-sentence-generator",
   "keywords": [
     "python",
-    "flask"
+    "flask",
+    "twitter",
+    "markov"
   ],
   "addons": [
     ""

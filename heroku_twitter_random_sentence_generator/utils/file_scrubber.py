@@ -4,7 +4,7 @@ from ordered_set import OrderedSet
 
 
 class FileScrubber():
-    min_string_token_count = 2
+    min_string_token_count = 3
 
     def __init__(self, file_name):
         self.file_name = file_name
@@ -19,6 +19,9 @@ class FileScrubber():
 
                 if not scrubbed_line or len(scrubbed_line.split()) < self.min_string_token_count:
                     continue
+
+                if scrubbed_line[-1:] not in ".,!?;":
+                    scrubbed_line += '.'
 
                 self.lines_set.add(scrubbed_line + '\n')
 

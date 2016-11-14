@@ -1,10 +1,9 @@
 import os
+import random
 
 import tweepy
 
-from heroku_random_sentence_generator.utils.sentence_generator import generate_sentence, FILE_NAME
-
-file_name = None
+from heroku_twitter_random_sentence_generator.utils.sentence_generator import generate_sentence, FILE_NAME
 
 # Fill in the values noted in previous step here
 cfg = {
@@ -14,9 +13,12 @@ cfg = {
     'access_token_secret': os.environ.get('TWITTER_TOKEN_SECRET')
 }
 
+twitter_tag = os.environ.get('TWITTER_TAG', '#TaylorSwift,#taytay')
 
-def post_to_twitter_account():
-    tweet = generate_sentence(file_name=file_name or FILE_NAME, twitter_hashtag='#TaylorSwift')
+
+def post_to_twitter_account(file_name=None):
+    twitter_hashtag = random.choice(twitter_tag.split(','))
+    tweet = generate_sentence(file_name=file_name or FILE_NAME, twitter_hashtag=twitter_hashtag)
     get_api(cfg).update_status(status=tweet)
     return tweet
 
@@ -29,4 +31,4 @@ def get_api(cfg):
 
 if __name__ == '__main__':
     file_name = '..' + os.path.sep + '..' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
-    post_to_twitter_account()
+    post_to_twitter_account(file_name)
