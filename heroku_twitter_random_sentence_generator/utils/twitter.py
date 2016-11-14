@@ -17,8 +17,8 @@ twitter_tags = os.environ.get('TWITTER_TAG', '#taylorswift')
 
 
 def post_to_twitter_account(file_name=None):
-    twitter_hashtag = random.choice(twitter_tags.split(','))
-    tweet = generate_sentence(file_name=file_name or FILE_NAME, twitter_hashtag=twitter_hashtag)
+    twitter_hashtags = random.choice(twitter_tags.split(','))
+    tweet = generate_sentence(file_name=file_name or FILE_NAME, twitter_hashtags=twitter_hashtags)
     get_api(cfg).update_status(status=tweet)
     return tweet
 
