@@ -30,7 +30,7 @@ class FileScrubber():
 
         for line in lines_set:
             _line = line
-            if merged_line and _line[0] != 'I':
+            if merged_line and _line[0] != 'I' and _line[1] != ' ':
                 _line = _line[0].lower() + _line[1:]
 
             merged_line += _line
