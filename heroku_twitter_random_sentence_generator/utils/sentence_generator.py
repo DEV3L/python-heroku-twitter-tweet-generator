@@ -5,7 +5,7 @@ from heroku_twitter_random_sentence_generator.utils.markov_sentence_generator im
 
 CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '2')
 FILE_NAME = os.environ.get('MARKOV_FILE_NAME', '.' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt')
-
+MAX_HASHTAGS = os.environ.get('TWITTER_MAX_HASHTAGS', '5')
 
 def _generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH):
     buildMapping(wordlist(file_name), int(chain_length))
@@ -33,7 +33,7 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
             continue
 
         if twitter_hashtags:
-            max_tags = random.randint(0, 6)
+            max_tags = random.randint(0, MAX_HASHTAGS)
             random.shuffle(twitter_hashtags)
             sentence += ' ' + twitter_hashtags.pop()
 
