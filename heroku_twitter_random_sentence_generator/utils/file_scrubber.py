@@ -55,7 +55,7 @@ class FileScrubber():
 
     @staticmethod
     def reset_modulo_count_line():
-        return random.randint(1, 3), 0, ''
+        return random.randint(2, 3), 0, ''
 
 if __name__ == "__main__":
     # iconv -f utf-8 -t ascii//TRANSLIT <file>
