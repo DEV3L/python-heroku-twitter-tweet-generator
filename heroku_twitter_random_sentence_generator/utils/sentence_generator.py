@@ -3,9 +3,8 @@ import random
 
 from heroku_twitter_random_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence, wordlist
 
-CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '3')
-FILE_NAME = os.environ.get('MARKOV_FILE_NAME',
-                           '.' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt')
+CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '2')
+FILE_NAME = os.environ.get('MARKOV_FILE_NAME', '.' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt')
 
 
 def _generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH):
@@ -56,6 +55,5 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
 
 if __name__ == "__main__":
     file_name = '..' + os.path.sep + '..' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
-    print(generate_sentence(file_name=file_name,
-                            twitter_hashtags='@taylorswift13,@TaylorSwift_IFC,@TaylorSPolls,#taylorswift,#taytay,#swifties,#red,#ariastaylorswift,#fearless,#speaknow,#music,#taylor,#swift,#country,#singer,#song,#instagood,#sweet,#tswift,#lovesong,#swag,#harambe,#imwithher,#imwithtay,#squirrel,#13,#turkishswiftie,#noitsbecky,#foreverswiftie,#taylurking,#november,#followforfollow,#likeforlike,#spamforspam,#swiftiesunite,#grunge,#gossip,#tayforpresident,#hatersgonnahate,#tatersgonnatate,#frenchgirls,#shakeitoff,#timmcgraw,#change,#blankspace,#airhug,#badblood,#ts1989,#neverforget1989,#wenevergooutofstyle,#vogue,#taylorvstreadmill,#groundyourself,#dogs,#kobe,#pledgeforparity,#powerfulwords,#grammys,#teardrops,#MadLove,#VideoOfTheYear,#BandaidsDontFixBulletHoles,#yourmom,#popular,#hashtag,#witness,#sayyoullrememberme,#taytayeveryday,#tayloralisonswift,#tswizzle,#ts,#taylorswift13,#taylorswiftfanpage,#taylorswiftfan,#swiftietag,#taylorswifttag,#istandwithtaylor,#realbitches,#truth,#onceyoupop,#ideservethis,#hotintheserhinos,#drinkingwineeatingchicken,#alliwantisyourlife,#savemetomcruise,#shakeandbake,#breakingnews,#yolo,#whatchagonnadowiththatbigfatbutt,#putthatthingbackwhereitcamefrom,#zipithappymeal,#selfies,#mytasteinmusicisyourface,#mynameisjeff,#fail,#win,#bonezone,#trump,#haters,#cakebytheocean,#wrong,#youreapuppet,#obama,#thanksobama'.split(
-                                ',')))
+    for _ in range(10):
+        print(generate_sentence(file_name=file_name))

@@ -9,25 +9,26 @@ class FileScrubber():
 
     def __init__(self, file_name):
         self.file_name = file_name
-        self.lines_set = OrderedSet()
 
     def scrub_file(self):
+        lines_set = OrderedSet()
         with open(self.file_name, 'r') as file_handler:
             for line in file_handler:
                 scrubbed_line = re.sub('\[.*?\]', '', re.sub('\{.*?\}', '', line)).strip(' ')
                 scrubbed_line = re.sub(':', '', scrubbed_line)
+                scrubbed_line = re.sub(';', '', scrubbed_line)
                 scrubbed_line = scrubbed_line.strip()
                 scrubbed_line = scrubbed_line.rstrip(',')
 
                 if not scrubbed_line or len(scrubbed_line.split()) < self.min_string_token_count:
                     continue
 
-                self.lines_set.add(scrubbed_line)
+                lines_set.add(scrubbed_line)
 
         merged_lines = []
         line_modulo_count, line_count, merged_line = self.reset_modulo_count_line()
 
-        for line in self.lines_set:
+        for line in lines_set:
             _line = line
             if merged_line and _line[0] != 'I':
                 _line = _line[0].lower() + _line[1:]
