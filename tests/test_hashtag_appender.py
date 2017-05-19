@@ -60,3 +60,12 @@ def test_append_attempts_all_possible_hashtags_to_length():
         random_hashtag = _build_random_hashtag_transformer(tweet=tweet, hashtags=hashtags)
         random_hashtag.append_random_hashtag()
         assert expected_value == random_hashtag.tweet
+
+
+def test_append_does_not_hashtag_when_greater_than_max_length():
+    tweet = ''.ljust(140, 'x')
+    random_hashtag = _build_random_hashtag_transformer(tweet=tweet)
+    random_hashtag.append_random_hashtag()
+
+    assert tweet == random_hashtag.tweet
+    assert ['#hashtag'] == random_hashtag.hashtags

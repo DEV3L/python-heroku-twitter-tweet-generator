@@ -10,7 +10,7 @@ class RandomHashtagTransformer():
         random.shuffle(hashtags)
 
     def append_random_hashtag(self):
-        if not len(self.hashtags):
+        if not len(self.hashtags) or len(self.tweet) >= RandomHashtagTransformer.MAX_TWEET_LENGTH:
             return
 
         hashtag = self.hashtags.pop()

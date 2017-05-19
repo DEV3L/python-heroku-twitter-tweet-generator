@@ -23,6 +23,8 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
     is_continue = False
     while True:
         sentence = _generate_sentence(file_name=file_name, chain_length=chain_length)
+        if len(sentence) > RandomHashtagTransformer.MAX_TWEET_LENGTH:
+            pass
 
         for line in lines:
             if sentence == line:
