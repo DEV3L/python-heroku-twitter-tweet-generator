@@ -25,7 +25,8 @@ setup(
         'ordered-set==2.0.1',
         'requests==2.11.1',
         'tweepy==3.5.0',
-        'pymessenger'
+        'pymessenger',
+        'pytest'
     ],
     classifiers=[
         'Environment :: Console',

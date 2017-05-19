@@ -1,6 +1,6 @@
 import os
-import random
 
+from heroku_twitter_random_sentence_generator.transformers.random_hashtag_transformer import RandomHashtagTransformer
 from heroku_twitter_random_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence, wordlist
 
 CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '2')
@@ -13,8 +13,9 @@ def _generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH):
 
 
 def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter_hashtags=None):
-    lines = []
+
     sentence = None
+    lines = []
     with open(file_name, 'r') as file_handler:
         for line in file_handler:
             lines.append(line)
@@ -33,22 +34,9 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
             continue
 
         if twitter_hashtags:
-            max_tags = random.randint(0, MAX_HASHTAGS)
-            random.shuffle(twitter_hashtags)
-            sentence += ' ' + twitter_hashtags.pop()
-
-            if len(sentence) <= 140:
-                hashtag_count = 0
-                while twitter_hashtags and hashtag_count < max_tags:
-                    another_hashtag = twitter_hashtags.pop()
-                    _sentence = sentence + ' ' + another_hashtag
-                    if len(_sentence) >= 140:
-                        break
-                    hashtag_count += 1
-                    sentence = _sentence
-                break
-        else:
-            break
+            random_hashtag_transformer = RandomHashtagTransformer(sentence, twitter_hashtags)
+            random_hashtag_transformer.append_random_hashtag()
+            sentence = random_hashtag_transformer.tweet
 
     return sentence
 
