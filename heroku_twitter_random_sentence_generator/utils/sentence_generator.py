@@ -8,12 +8,10 @@ FILE_NAME = os.environ.get('MARKOV_FILE_NAME', '.' + os.path.sep + 'resources' +
 MAX_HASHTAGS = int(os.environ.get('TWITTER_MAX_HASHTAGS', '5'))
 
 def _generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH):
-    buildMapping(wordlist(file_name), int(chain_length))
     return genSentence(int(chain_length))
 
 
 def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter_hashtags=None):
-
     sentence = None
     lines = []
     with open(file_name, 'r') as file_handler:
@@ -21,11 +19,12 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
             lines.append(line)
 
     is_continue = False
+    buildMapping(wordlist(file_name), int(chain_length))
+
     while True:
         sentence = _generate_sentence(file_name=file_name, chain_length=chain_length)
         if len(sentence) > RandomHashtagTransformer.MAX_TWEET_LENGTH:
-            pass
-
+            continue
         for line in lines:
             if sentence == line:
                 is_continue = True
@@ -35,10 +34,10 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
             is_continue = False
             continue
 
-        if twitter_hashtags:
-            random_hashtag_transformer = RandomHashtagTransformer(sentence, twitter_hashtags)
-            random_hashtag_transformer.append_random_hashtag()
-            sentence = random_hashtag_transformer.tweet
+        random_hashtag_transformer = RandomHashtagTransformer(sentence, twitter_hashtags)
+        random_hashtag_transformer.append_random_hashtag()
+        sentence = random_hashtag_transformer.tweet
+        break
 
     return sentence
 
