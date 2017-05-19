@@ -6,8 +6,8 @@ class RandomHashtagTransformer():
 
     def __init__(self, tweet, hashtags):
         self.tweet = tweet
-        self.hashtags = list(hashtags)
-        random.shuffle(hashtags)
+        self.hashtags = list(hashtags) if hashtags else []
+        random.shuffle(self.hashtags)
 
     def append_random_hashtag(self):
         if not len(self.hashtags) or len(self.tweet) >= RandomHashtagTransformer.MAX_TWEET_LENGTH:
