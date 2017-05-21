@@ -1,8 +1,8 @@
 import os
 
-from app.twitter_sentence_generator.extractors.file_words_extractor import FileWordsExtractor
-from app.twitter_sentence_generator.transformers.random_hashtag_transformer import RandomHashtagTransformer
-from app.twitter_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence
+from twitter_sentence_generator.extractors.file_words_extractor import FileWordsExtractor
+from twitter_sentence_generator.transformers.random_hashtag_transformer import RandomHashtagTransformer
+from twitter_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence
 
 CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '2')
 FILE_NAME = os.environ.get('MARKOV_FILE_NAME', '.' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt')

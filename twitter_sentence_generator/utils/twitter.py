@@ -2,7 +2,7 @@ import os
 
 import tweepy
 
-from app.twitter_sentence_generator.utils.sentence_generator import generate_sentence, FILE_NAME
+from twitter_sentence_generator.utils.sentence_generator import generate_sentence, FILE_NAME
 
 # Fill in the values noted in previous step here
 cfg = {

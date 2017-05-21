@@ -1,6 +1,6 @@
 import tweepy
 
-# Twitter app keys
+# Twitter src keys
 cfg = {
     'consumer_key': 'KjtDKHqlanK2XukWwOjz1Bl1O',
     'consumer_secret': 'GHwPYcWLcVyX6ZiUd2HW3Esov8d8wl48d8Gh1jnJ1AXvlt7rPq',

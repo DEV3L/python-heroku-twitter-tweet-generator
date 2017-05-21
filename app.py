@@ -1,10 +1,10 @@
 from flask import Flask
 from flask.ext.runner import Runner
 
-from app.twitter_sentence_generator.utils.facebook import post_to_facebook_page
-from app.twitter_sentence_generator.utils.logging_wrapper import log_exception
-from app.twitter_sentence_generator.utils.sentence_generator import generate_sentence
-from app.twitter_sentence_generator.utils.twitter import post_to_twitter_account
+from twitter_sentence_generator.utils.facebook import post_to_facebook_page
+from twitter_sentence_generator.utils.logging_wrapper import log_exception
+from twitter_sentence_generator.utils.sentence_generator import generate_sentence
+from twitter_sentence_generator.utils.twitter import post_to_twitter_account
 
 app = Flask(__name__)
 runner = Runner(app)

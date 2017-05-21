@@ -4,7 +4,7 @@
 import random
 import sys
 
-from app.twitter_sentence_generator.extractors.file_words_extractor import FileWordsExtractor
+from twitter_sentence_generator.extractors.file_words_extractor import FileWordsExtractor
 
 # These mappings can get fairly large -- they're stored globally to
 # save copying time.

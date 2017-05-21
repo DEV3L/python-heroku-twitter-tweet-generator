@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from app.twitter_sentence_generator.utils.twitter import post_to_twitter_account
+from twitter_sentence_generator.utils.twitter import post_to_twitter_account
 
 
 def tweet():

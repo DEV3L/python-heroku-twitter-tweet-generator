@@ -2,7 +2,7 @@ import logging
 import sys
 
 _logger = None
-_level = logging.WARN
+_level = logging.DEBUG
 
 logging_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 
