@@ -1,4 +1,4 @@
-from heroku_twitter_random_sentence_generator.transformers.random_hashtag_transformer import RandomHashtagTransformer
+from app.twitter_sentence_generator.transformers.random_hashtag_transformer import RandomHashtagTransformer
 
 
 def _build_random_hashtag_transformer(*, tweet='some text', hashtags=None):

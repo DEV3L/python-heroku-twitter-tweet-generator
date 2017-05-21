@@ -2,7 +2,7 @@ import os
 
 import tweepy
 
-from heroku_twitter_random_sentence_generator.utils.sentence_generator import generate_sentence, FILE_NAME
+from app.twitter_sentence_generator.utils.sentence_generator import generate_sentence, FILE_NAME
 
 # Fill in the values noted in previous step here
 cfg = {

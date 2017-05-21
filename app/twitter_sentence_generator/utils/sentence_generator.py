@@ -1,11 +1,12 @@
 import os
 
-from heroku_twitter_random_sentence_generator.transformers.random_hashtag_transformer import RandomHashtagTransformer
-from heroku_twitter_random_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence, wordlist
+from app.twitter_sentence_generator.transformers.random_hashtag_transformer import RandomHashtagTransformer
+from app.twitter_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence, wordlist
 
 CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '2')
 FILE_NAME = os.environ.get('MARKOV_FILE_NAME', '.' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt')
 MAX_HASHTAGS = int(os.environ.get('TWITTER_MAX_HASHTAGS', '5'))
+
 
 def _generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH):
     return genSentence(int(chain_length))

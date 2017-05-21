@@ -57,6 +57,7 @@ class FileScrubber():
     def reset_modulo_count_line():
         return random.randint(2, 3), 0, ''
 
+
 if __name__ == "__main__":
     # iconv -f utf-8 -t ascii//TRANSLIT <file>
     file_scrubber = FileScrubber('../../resources/taylorswift.txt')
