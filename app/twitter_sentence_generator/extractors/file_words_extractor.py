@@ -14,7 +14,8 @@ class FileWordsExtractor():
     @property
     def file_contents(self):
         # cache
-        self._file_contents = self._file_contents if self._file_contents is not None else self._read_file()
+        if self._file_contents is None:
+            self._read_file()
         return self._file_contents
 
     @property

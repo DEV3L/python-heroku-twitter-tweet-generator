@@ -1,7 +1,8 @@
 import os
 
+from app.twitter_sentence_generator.extractors.file_words_extractor import FileWordsExtractor
 from app.twitter_sentence_generator.transformers.random_hashtag_transformer import RandomHashtagTransformer
-from app.twitter_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence, wordlist
+from app.twitter_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence
 
 CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '2')
 FILE_NAME = os.environ.get('MARKOV_FILE_NAME', '.' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt')
@@ -20,7 +21,11 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
             lines.append(line)
 
     is_continue = False
-    buildMapping(wordlist(file_name), int(chain_length))
+
+    file_words_extractor = FileWordsExtractor(file_name)
+    words = file_words_extractor.extract_words()
+
+    buildMapping(words, int(chain_length))
 
     while True:
         sentence = _generate_sentence(file_name=file_name, chain_length=chain_length)
@@ -44,6 +49,6 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
 
 
 if __name__ == "__main__":
-    file_name = '..' + os.path.sep + '..' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
+    file_name = '.' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
     for _ in range(10):
         print(generate_sentence(file_name=file_name))
