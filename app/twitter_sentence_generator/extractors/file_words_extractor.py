@@ -8,8 +8,12 @@ class FileWordsExtractor():
         self.file_name = file_name
         self._file_contents = None
 
+    def extract_words(self):
+        return [word for word in self._normalize_words()]
+
     @property
     def file_contents(self):
+        # cache
         self._file_contents = self._file_contents if self._file_contents is not None else self._read_file()
         return self._file_contents
 
@@ -17,12 +21,17 @@ class FileWordsExtractor():
     def words(self):
         return re.findall(WORDS_REGULAR_EXPRESSION, self.file_contents)
 
-    def wordlist(self, filename):
-        wordlist = [self.fixCaps(w) for w in re.findall(r"[\w']+|[.,!?;]", self.file_contents)]
-        return wordlist
-
-    def fixCaps(self, w):
-        return ''
+    def _normalize_words(self):
+        _words = []
+        for word in self.words:
+            if word.isupper() and word != "I":
+                word = word.lower()
+            elif word[0].isupper():
+                word = word.lower().capitalize()
+            else:
+                word = word.lower()
+            _words.append(word)
+        return _words
 
     def _read_file(self):
         with open(self.file_name, 'r') as file:

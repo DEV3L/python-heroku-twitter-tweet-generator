@@ -2,9 +2,8 @@
 # !/usr/bin/python
 
 import random
+import re
 import sys
-
-from app.twitter_sentence_generator.extractors.file_words_extractor import FileWordsExtractor
 
 # These mappings can get fairly large -- they're stored globally to
 # save copying time.
@@ -24,11 +23,34 @@ mapping = {}
 starts = []
 
 
+# We want to be able to compare words independent of their capitalization.
+def fixCaps(word):
+    # Ex: "FOO" -> "foo"
+    if word.isupper() and word != "I":
+        word = word.lower()
+        # Ex: "LaTeX" => "Latex"
+    elif word[0].isupper():
+        word = word.lower().capitalize()
+        # Ex: "wOOt" -> "woot"
+    else:
+        word = word.lower()
+    return word
+
+
 # Tuples can be hashed; lists can't.  We need hashable values for dict keys.
 # This looks like a hack (and it is, a little) but in practice it doesn't
 # affect processing time too negatively.
 def toHashKey(lst):
     return tuple(lst)
+
+
+# Returns the contents of the file, split into a list of words and
+# (some) punctuation.
+def wordlist(filename):
+    f = open(filename, 'r')
+    wordlist = [fixCaps(w) for w in re.findall(r"[\w']+|[.,!?;]", f.read())]
+    f.close()
+    return wordlist
 
 
 # Self-explanatory -- adds "word" to the "tempMapping" dict under "history".
@@ -121,11 +143,7 @@ def main():
     if len(sys.argv) == 3:
         markovLength = int(sys.argv[2])
 
-    file_words_extractor = FileWordsExtractor(filename)
-    words = file_words_extractor.extract_words()
-
-    buildMapping(words, markovLength)
-
+    buildMapping(wordlist(filename), markovLength)
     print(genSentence(markovLength))
 
 
