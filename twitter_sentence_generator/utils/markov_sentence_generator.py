@@ -5,6 +5,7 @@ import random
 import sys
 
 from twitter_sentence_generator.extractors.file_words_extractor import FileWordsExtractor
+from twitter_sentence_generator.transformers.list_transformer import ListTransformer
 
 # These mappings can get fairly large -- they're stored globally to
 # save copying time.
@@ -24,13 +25,6 @@ mapping = {}
 starts = []
 
 
-# Tuples can be hashed; lists can't.  We need hashable values for dict keys.
-# This looks like a hack (and it is, a little) but in practice it doesn't
-# affect processing time too negatively.
-def toHashKey(lst):
-    return tuple(lst)
-
-
 # Self-explanatory -- adds "word" to the "tempMapping" dict under "history".
 # tempMapping (and mapping) both match each word to a list of possible next
 # words.
@@ -39,7 +33,7 @@ def toHashKey(lst):
 def addItemToTempMapping(history, word):
     global tempMapping
     while len(history) > 0:
-        first = toHashKey(history)
+        first = ListTransformer(history).tuple
         if first in tempMapping:
             if word in tempMapping[first]:
                 tempMapping[first][word] += 1.0
@@ -79,10 +73,10 @@ def next(prevList):
     retval = ""
     index = random.random()
     # Shorten prevList until it's in mapping
-    while toHashKey(prevList) not in mapping:
+    while ListTransformer(prevList).tuple not in mapping:
         prevList.pop(0)
     # Get a random word from the mapping, given prevList
-    for k, v in mapping[toHashKey(prevList)].items():
+    for k, v in mapping[ListTransformer(prevList).tuple].items():
         sum += v
         if sum >= index and retval == "":
             retval = k

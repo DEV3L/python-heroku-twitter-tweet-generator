@@ -49,6 +49,6 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
 
 
 if __name__ == "__main__":
-    file_name = '.' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
+    file_name = '..' + os.path.sep + '..' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
     for _ in range(10):
         print(generate_sentence(file_name=file_name))
