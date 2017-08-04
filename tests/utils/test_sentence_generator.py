@@ -1,6 +1,9 @@
+import os
 from unittest.mock import patch
 
 import pytest
+
+from twitter_sentence_generator.utils.sentence_generator import generate_sentence
 
 
 @patch('twitter_sentence_generator.utils.sentence_generator.genSentence')
@@ -49,3 +52,12 @@ def test__generate_sentence_chain_does_not_use_file_name(mock_gen_sentence):
 
     _generate_sentence()
     mock_gen_sentence.assert_called_with(int(CHAIN_LENGTH))
+
+
+def test_main():
+    file_name = '..' + os.path.sep + '..' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
+    print('\n10 random sentences from the file: {file_name}'.format(file_name=file_name))
+    for _ in range(10):
+        sentence = generate_sentence(file_name=file_name)
+        print(sentence)
+        assert sentence
