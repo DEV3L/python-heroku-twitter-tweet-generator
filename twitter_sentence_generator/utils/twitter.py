@@ -12,7 +12,7 @@ cfg = {
     'access_token_secret': os.environ.get('TWITTER_TOKEN_SECRET')
 }
 
-twitter_tags = os.environ.get('TWITTER_TAG', '#twentyonepilots')
+twitter_tags = os.environ.get('TWITTER_TAG', '')
 
 
 def post_to_twitter_account(file_name=None):

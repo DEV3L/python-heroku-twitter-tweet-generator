@@ -6,7 +6,7 @@ from twitter_sentence_generator.utils.markov_sentence_generator import build_map
 
 SCRUBBED_FILE = os.environ.get('SCRUBBED_FILE', './resources/twentyonepilots_scrubbed.txt')
 CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '3')
-MAX_HASHTAGS = int(os.environ.get('TWITTER_MAX_HASHTAGS', '5'))
+MAX_HASHTAGS = int(os.environ.get('TWITTER_MAX_HASHTAGS', '1'))
 
 
 def _generate_sentence(*, chain_length=CHAIN_LENGTH):
