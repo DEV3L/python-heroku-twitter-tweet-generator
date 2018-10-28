@@ -2,7 +2,7 @@ import os
 
 import tweepy
 
-from twitter_sentence_generator.utils.sentence_generator import generate_sentence, FILE_NAME
+from twitter_sentence_generator.utils.sentence_generator import generate_sentence, SCRUBBED_FILE
 
 # Fill in the values noted in previous step here
 cfg = {
@@ -12,14 +12,13 @@ cfg = {
     'access_token_secret': os.environ.get('TWITTER_TOKEN_SECRET')
 }
 
-twitter_tags = os.environ.get('TWITTER_TAG', '#taylorswift')
+twitter_tags = os.environ.get('TWITTER_TAG', '#twentyonepilots')
 
 
 def post_to_twitter_account(file_name=None):
     twitter_hashtags = twitter_tags.split(',')
-    tweet = generate_sentence(file_name=file_name or FILE_NAME, twitter_hashtags=twitter_hashtags)
+    tweet = generate_sentence(file_name=file_name or SCRUBBED_FILE, twitter_hashtags=twitter_hashtags)
     get_api(cfg).update_status(status=tweet)
-    return tweet
 
 
 def get_api(cfg):
@@ -29,5 +28,6 @@ def get_api(cfg):
 
 
 if __name__ == '__main__':
-    file_name = '..' + os.path.sep + '..' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
-    post_to_twitter_account(file_name)
+    file_name = SCRUBBED_FILE.split('/')[-1]
+    file_path = f'../../resources/{file_name}'
+    post_to_twitter_account(file_path)

@@ -2,42 +2,33 @@ import os
 
 from twitter_sentence_generator.extractors.file_words_extractor import FileWordsExtractor
 from twitter_sentence_generator.transformers.random_hashtag_transformer import RandomHashtagTransformer
-from twitter_sentence_generator.utils.markov_sentence_generator import buildMapping, genSentence
+from twitter_sentence_generator.utils.markov_sentence_generator import build_mapping, build_sentence
 
-CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '2')
-FILE_NAME = os.environ.get('MARKOV_FILE_NAME', '.' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt')
+SCRUBBED_FILE = os.environ.get('SCRUBBED_FILE', './resources/twentyonepilots_scrubbed.txt')
+CHAIN_LENGTH = os.environ.get('MARKOV_CHAIN_LENGTH', '3')
 MAX_HASHTAGS = int(os.environ.get('TWITTER_MAX_HASHTAGS', '5'))
 
 
-def _generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH):
-    return genSentence(int(chain_length))
+def _generate_sentence(*, chain_length=CHAIN_LENGTH):
+    return build_sentence(int(chain_length))
 
 
-def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter_hashtags=None):
-    sentence = None
-    lines = []
+def generate_sentence(*, file_name=SCRUBBED_FILE, chain_length=CHAIN_LENGTH, twitter_hashtags=None):
     with open(file_name, 'r') as file_handler:
-        for line in file_handler:
-            lines.append(line)
-
-    is_continue = False
+        lines = [line.rstrip() for line in file_handler]
 
     file_words_extractor = FileWordsExtractor(file_name)
     words = file_words_extractor.extract_words()
 
-    buildMapping(words, int(chain_length))
+    build_mapping(words, int(chain_length))
 
     while True:
-        sentence = _generate_sentence(file_name=file_name, chain_length=chain_length)
+        sentence = _generate_sentence(chain_length=chain_length)
         if len(sentence) > RandomHashtagTransformer.MAX_TWEET_LENGTH:
             continue
-        for line in lines:
-            if sentence == line:
-                is_continue = True
-                break
 
-        if is_continue:
-            is_continue = False
+        is_not_unique = [line for line in lines if sentence == line]
+        if is_not_unique:
             continue
 
         random_hashtag_transformer = RandomHashtagTransformer(sentence, twitter_hashtags)
@@ -49,6 +40,7 @@ def generate_sentence(*, file_name=FILE_NAME, chain_length=CHAIN_LENGTH, twitter
 
 
 if __name__ == "__main__":
-    file_name = '..' + os.path.sep + '..' + os.path.sep + 'resources' + os.path.sep + 'scrubbed_file.txt'
+    file_name = SCRUBBED_FILE.split('/')[-1]
+    file_path = f'../../resources/{file_name}'
     for _ in range(10):
-        print(generate_sentence(file_name=file_name))
+        print(generate_sentence(file_name=file_path))

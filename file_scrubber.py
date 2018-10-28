@@ -13,7 +13,7 @@ class FileScrubber:
 
     def scrub_file(self):
         # remove duplicate lines
-        unique_lines_set = []
+        unique_lines_set = OrderedSet()
         with open(self.file_name, 'r') as file_handler:
             for line in file_handler:
                 unique_lines_set.append(line)
@@ -74,7 +74,7 @@ class FileScrubber:
 # convert to utf-8 character set
 # iconv -f utf-8 -t ascii//TRANSLIT <file>
 source_file = os.environ.get('SOURCE_FILE', './resources/twentyonepilots.txt')
-scrub_file = os.environ.get('SOURCE_FILE', './resources/twentyonepilots_scrubbed.txt')
+scrub_file = os.environ.get('SCRUBBED_FILE', './resources/twentyonepilots_scrubbed.txt')
 
 if __name__ == "__main__":
     file_scrubber = FileScrubber(source_file)

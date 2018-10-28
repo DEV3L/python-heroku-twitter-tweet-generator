@@ -8,8 +8,7 @@ from twitter_sentence_generator.builders.mapping_builder import MappingBuilder
 from twitter_sentence_generator.extractors.file_words_extractor import FileWordsExtractor
 from twitter_sentence_generator.transformers.list_transformer import ListTransformer
 
-# These mappings can get fairly large -- they're stored globally to
-# save copying time.
+# These mappings can get fairly large -- they're stored globally to save copying time.
 
 # (tuple of words) -> {dict: word -> number of times the word appears following the tuple}
 # Example entry:
@@ -27,64 +26,76 @@ starts = []
 
 
 # Building and normalizing the mapping.
-def buildMapping(wordlist, markovLength):
+def build_mapping(word_list, markov_length):
     global tempMapping
-    starts.append(wordlist[0])
-    for i in range(1, len(wordlist) - 1):
-        if i <= markovLength:
-            history = wordlist[: i + 1]
+    starts.append(word_list[0])
+
+    tempMapping = MappingBuilder(mapping=mapping, temp_mapping=tempMapping, starts=starts).add_item_to_temp_mapping(
+        [word_list[0]], word_list[1])
+
+    for i in range(1, len(word_list) - 1):
+        if i <= markov_length:
+            history = word_list[: i + 1]
         else:
-            history = wordlist[i - markovLength + 1: i + 1]
-        follow = wordlist[i + 1]
+            history = word_list[i - markov_length + 1: i + 1]
+        follow = word_list[i + 1]
         # if the last elt was a period, add the next word to the start list
         if history[-1] == "." and follow not in ".,!?;":
             starts.append(follow)
         tempMapping = MappingBuilder(mapping=mapping, temp_mapping=tempMapping, starts=starts).add_item_to_temp_mapping(
             history, follow)
     # Normalize the values in tempMapping, put them into mapping
-    for first, followset in tempMapping.items():
-        total = sum(followset.values())
+    for first, follow_set in tempMapping.items():
+        total = sum(follow_set.values())
         # Normalizing here:
-        mapping[first] = dict([(k, v / total) for k, v in followset.items()])
+        mapping[first] = dict([(k, v / total) for k, v in follow_set.items()])
 
 
 # Returns the next word in the sentence (chosen randomly),
 # given the previous ones.
-def next(prevList):
-    sum = 0.0
-    retval = ""
+def get_next_word(previous_list):
+    total_sum = 0.0
+    next_word = ''
     index = random.random()
+
     # Shorten prevList until it's in mapping
-    while ListTransformer(prevList).tuple not in mapping:
-        prevList.pop(0)
+    _mapping = mapping
+    hash_key = ListTransformer(previous_list).tuple
+
+    while hash_key not in mapping:
+        previous_list.pop(0)
+
     # Get a random word from the mapping, given prevList
-    for k, v in mapping[ListTransformer(prevList).tuple].items():
-        sum += v
-        if sum >= index and retval == "":
-            retval = k
-    return retval
+    for key, value in mapping[ListTransformer(previous_list).tuple].items():
+        total_sum += value
+        if total_sum >= index and next_word == "":
+            next_word = key
+
+    return next_word
 
 
-def genSentence(markovLength):
+def build_sentence(markov_length):
     # Start with a random "starting word"
-    curr = random.choice(starts)
-    sent = curr.capitalize()
-    prevList = [curr]
+    current_word = random.choice(starts)
 
-    ## Keep adding words until we hit a period
-    # while (curr not in ".\n"):
+    sentence = current_word.capitalize()
+    previous_list = [current_word]
 
     # Keep adding words until we hit a punctuation mark
-    while (curr not in ".!?"):
-        curr = next(prevList)
-        prevList.append(curr)
+    while current_word not in ".!?":
+        current_word = get_next_word(previous_list)
+        previous_list.append(current_word)
+
         # if the prevList has gotten too long, trim it
-        if len(prevList) > markovLength:
-            prevList.pop(0)
-        if (curr not in ".,!?;"):
-            sent += " "  # Add spaces between words (but not punctuation)
-        sent += curr
-    return sent
+        if len(previous_list) > markov_length:
+            previous_list.pop(0)
+
+        if current_word not in ".,!?;":
+            sentence += " "  # Add spaces between words (but not punctuation)
+
+        sentence += current_word
+
+    return sentence
 
 
 def main():
@@ -93,16 +104,16 @@ def main():
         sys.exit(1)
 
     filename = sys.argv[1]
-    markovLength = 1
+    markov_length = 1
     if len(sys.argv) == 3:
-        markovLength = int(sys.argv[2])
+        markov_length = int(sys.argv[2])
 
     file_words_extractor = FileWordsExtractor(filename)
     words = file_words_extractor.extract_words()
 
-    buildMapping(words, markovLength)
+    build_mapping(words, markov_length)
 
-    print(genSentence(markovLength))
+    print(build_sentence(markov_length))
 
 
 if __name__ == "__main__":
