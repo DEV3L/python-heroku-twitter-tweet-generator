@@ -1,0 +1,10 @@
+flask==0.10.1
+flask-runner
+facebook-sdk
+gunicorn
+requests
+tweepy
+
+coverage
+pytest
+ipdb
