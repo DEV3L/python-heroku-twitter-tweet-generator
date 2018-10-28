@@ -1,7 +1,8 @@
-flask==0.10.1
-flask-runner
 facebook-sdk
+flask-runner
+flask==0.10.1
 gunicorn
+ordered_set
 requests
 tweepy
 
