@@ -16,11 +16,16 @@ def index():
 
 @app.route("/twitter")
 def twitter():
-    try:
-        return post_to_twitter_account()
-    except Exception as exception:
-        log_exception('Could not post to Twitter')
-        return exception
+    return post_to_twitter_account()
+
+
+@app.errorhandler(Exception)
+def handle_error(e):
+    log_exception(e)
+
+    message = str(e)
+
+    return message
 
 
 if __name__ == "__main__":
