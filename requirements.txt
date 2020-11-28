@@ -1,5 +1,5 @@
-flask-runner
-flask==0.10.1
+flask-script
+flask>=1.0.0
 gunicorn
 ordered_set
 requests

@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_runner import Manager
+from flask_script import Manager
 
 from twitter_sentence_generator.utils.logging_wrapper import log_exception
 from twitter_sentence_generator.utils.sentence_generator import generate_sentence
